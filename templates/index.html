@@ -1,0 +1,25 @@
+{% extends 'base.html' %} 
+
+{% block body %}
+<div class="container">
+    <a href="/create" role="button">Create new task</a>
+    {% for post in posts %}
+
+    <div style="margin: auto;">
+        <div class="card-body">
+            {% if post.due.date() < today %}
+            <div class="alert alert-warning" role="alert">
+                Expired
+            </div>
+            {% endif %}
+            <h2 class="card-title">{{ post.title }}</h2>
+            <p>期限：{{ post.due.date() }}</p>
+            <a href="/detail/{{ post.id }}" role="button">Detail</a>
+            <a href="/update/{{ post.id }}" role="button">Update</a>
+            <a href="/delete/{{ post.id }}" role="button">Delete</a>
+        </div>
+    </div>  
+    {% endfor %} 
+</div>
+
+{% endblock %}

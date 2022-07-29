@@ -1,0 +1,23 @@
+{% extends 'base.html' %} 
+
+{% block body %}
+<h2>新規追加</h2>
+<form action="/" method='POST'>
+    <div>
+        <label for="title">Title : </label>
+        <input type="text" class="form-control" name="title" aria-describedby="title-help">
+        <small id="title-help" class="form-text text-muted">Todoを入力してください。</small>
+    </div>
+    <div>
+        <label for="detail">Detail :  </label>
+        <input type="text" class="form-control" name="detail">
+    </div>
+    <div>
+        <label for="due">Due : </label>
+        <input type="date" name="due" required>
+    </div>
+    <a href="/"role="button">Return</a>
+    <button type="submit">Create</button>
+</form>
+
+{% endblock %}

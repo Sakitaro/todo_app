@@ -1,6 +1,6 @@
 from datetime import datetime
-from flask import Flask, render_template, request, redirect
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template, request, redirect, url_for    #requestはGETやPOSTのようにリクエスト方法に応じて実装内容を変更するために必要　
+from flask_sqlalchemy import SQLAlchemy         # redirectはPOSTで受け取った内容をデータベースに反映した後に、もう一度トップページへアクセスするため
 from datetime import datetime, date
 
 
@@ -9,6 +9,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todo.db'
 db = SQLAlchemy(app)
 
 
+#データベースの項目定義
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(30), nullable=False)
@@ -16,22 +17,27 @@ class Post(db.Model):
     due = db.Column(db.DateTime, nullable=False)
 
 
-@app.route('/', methods=['GET', 'POST']) #GET POSTがわからない
+#GET: 保存されているタスクを表示  POST: データベースにタスクを保存
+@app.route('/', methods=['GET', 'POST']) 
 def index():
+    # データベースから全ての投稿を取り出し、トップページに渡す
     if request.method == 'GET':
         posts = Post.query.order_by(Post.due).all()
         return render_template('index.html', posts=posts, today=date.today())
 
     else:
-        title = request.form.get('title')
+        # 1,POSTされた内容を受け取る
+        # 2,Postクラスに受け取った内容を渡す
+        # 3,データベースに投稿を保存する
+        title = request.form.get('title') 
         detail = request.form.get('detail')
         due = request.form.get('due')
 
-        due = datetime.strptime(due, '%Y-%m-%d')
+        due = datetime.strptime(due, '%Y-%m-%d') #文字列→日付型　データベースの定義で日付型を指定していたけど、フォームから受け取る値が文字列だから
         new_post = Post(title=title, detail=detail, due=due)
 
-        db.session.add(new_post)
-        db.session.commit()
+        db.session.add(new_post) #内容追加
+        db.session.commit() # 実際に反映
         return redirect('/')
 
 
@@ -40,9 +46,9 @@ def create():
     return render_template('create.html')
 
 
-@app.route('/detail/<int:id>')
+@app.route('/detail/<int:id>') # どの投稿の詳細ページを開くのか指定
 def read(id):
-    post = Post.query.get(id)
+    post = Post.query.get(id)  # 該当するidの投稿内容を取得
 
     return render_template('detail.html', post=post)
 

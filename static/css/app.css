@@ -1,0 +1,25 @@
+.card {
+    height: 300px;
+	width: 300px;
+	object-fit: cover; 
+	margin: 4em;
+	border-radius: 20px;
+}
+
+.card-img {
+    height: 300px;
+	width: 300px;
+	object-fit: cover; 
+	border-radius: 20px;
+} 
+
+
+.flex {
+	display: flex;
+  }
+
+  .bi {
+	color: yellow;
+  }
+
+

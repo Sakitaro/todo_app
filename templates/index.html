@@ -4,8 +4,10 @@
 </head>
 {% block body %}
 
-<header>
-    <a href="/create" class="btn btn-primary" role="button">Create new task</a>
+<header id="header">
+    <a href="/create" class="create-button">
+        <img src="static/images/icons8-add-96.png">
+    </a>
 </header>
 
 <div class="container">
@@ -13,32 +15,74 @@
     {% for post in posts %}
 
     <div class="d-inline-flex">
-                
-                <!-- カードの情報 -->
-                <div class="card text-white">
-                    <img src="static/images/nikita-tarasevich-dQk2mqURSzk-unsplash.jpg" class="card-img">
-                    <div class="card-img-overlay">
-
-                        <h2 class="card-title">{{ post.title }}</h2>
-
-
-                        <div class="flex">
-                            {% if post.due.date() < today %}
-                            <i class="bi bi-exclamation-diamond"></i>
-                            {% endif %}
-                        
-                            <p>期限：{{ post.due.date() }}</p>
-                        </div>
-                        
-                        <a href="/detail/{{ post.id }}" role="button">Detail</a>
-                        <a href="/update/{{ post.id }}" role="button">Update</a>
-                        <a href="/delete/{{ post.id }}" role="button">Delete</a>
-                    </div>
+        <!-- タスクカードの情報 -->
+        <div class="card text-white">
+            <img class="card-img" id="imageArea{{ loop.index0 }}">
+            <div class="card-img-overlay">
+                <h2 class="card-title">{{ post.title }}</h2>
+                <div class="flex card-due">
+                    {% if post.due.date() < today %}
+                    <i class="bi bi-exclamation-diamond"></i>
+                    {% endif %}
+                    <p>{{ post.due.date() }}</p>
                 </div>
-
+                <a href="/detail/{{ post.id }}" class="card-text text-white" role="button">Detail</a>
+                <a href="/update/{{ post.id }}" class="card-text text-white" role="button">Update</a>
+                <a href="/delete/{{ post.id }}" class="card-text text-white" role="button">Delete</a>
+            </div>
+        </div>
     </div>  
 
     {% endfor %} 
+
+    <!-- ランダムに画像をあてる -->
+    <script>
+        const images = ["static/randam-images/1.jpg",
+                        "static/randam-images/2.jpg",
+                        "static/randam-images/3.jpg",
+                        "static/randam-images/4.jpg",
+                        "static/randam-images/5.jpg",
+                        "static/randam-images/6.jpg",
+                        "static/randam-images/7.jpg",
+                        "static/randam-images/8.jpg",
+                        "static/randam-images/9.jpg",
+                        "static/randam-images/10.jpg",
+                        "static/randam-images/11.jpg",
+                        "static/randam-images/12.jpg",
+                        "static/randam-images/13.jpg",
+                        "static/randam-images/14.jpg",
+                        "static/randam-images/15.jpg",
+                        "static/randam-images/16.jpg",
+                        "static/randam-images/17.jpg",
+                        "static/randam-images/18.jpg",
+                        "static/randam-images/19.jpg",
+                        "static/randam-images/20.jpg",
+                        "static/randam-images/21.jpg",
+                        "static/randam-images/22.jpg",
+                        "static/randam-images/23.jpg",
+                        "static/randam-images/24.jpg",
+                        "static/randam-images/25.jpg",
+                        "static/randam-images/26.jpg",
+                        "static/randam-images/27.jpg",
+                        "static/randam-images/28.jpg",
+                        "static/randam-images/29.jpg",
+                        "static/randam-images/30.jpg",
+                        "static/randam-images/31.jpg",
+                        "static/randam-images/32.jpg",
+                        "static/randam-images/33.jpg",
+                        "static/randam-images/34.jpg",
+                        "static/randam-images/35.jpg",
+                        "static/randam-images/36.jpg",
+                        "static/randam-images/37.jpg",
+                        "static/randam-images/38.jpg",
+                        "static/randam-images/39.jpg"];
+
+        for (let i=0; i<"{{ posts|length }}"; i++) {
+        const imageArea = document.getElementById('imageArea'+i);
+        const imageNo = Math.floor(Math.random() * images.length);
+        imageArea.src = images[imageNo];
+        }
+    </script>
 
 </div>
 

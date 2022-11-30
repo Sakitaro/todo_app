@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h2 style="text-align: center;">詳細</h2>
-<div style="margin: auto;">
+<h2 style="text-align: center;">Detail</h2>
+<div class="container">
     <div>
-        <h2>{{ post.title }} <span class="ml-3"
-                style="font-size: 0.5em;">期限：{{ post.due.date() }}</span></h2>
+        <h2>{{ post.title }} 
+            <span class="ml-3" style="font-size: 0.5em;">Deadline: {{ post.due.date() }}</span></h2>
         <p>{{ post.detail }}</p>
 
         <div>
-            <a href="/" role="button">Return</a>
-            <a href="/update/{{ post.id }}" role="button">Update</a>
+            <a href="/" class="btn btn-primary" role="button">Return</a>
+            <a href="/update/{{ post.id }}" class="btn btn-primary" role="button">Update</a>
         </div>
         
     </div>

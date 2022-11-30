@@ -1,21 +1,23 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h2>編集</h2>
+<h2 style="text-align: center;">Edit</h2>
 <form action="/update/{{ post.id }}" method="POST">
-    <div>
-        <label for="title">Title : </label>
-        <input type="text" class="form-control" name="title" aria-describedby="title-help" value={{ post.title }}>
-    </div>
-    <div>
-        <label for="detail">Detail : </label>
-        <input type="text" class="form-control" name="detail" value={{ post.detail }}>
-    </div>
-    <div>
-        <label for="due">Due : </label>
-        <input type="date" name="due" value={{ post.due.date() }} required>
-    </div>
-    <a href="/" role="button">Return</a>
-    <button type="submit">Change</button>
+     <div class="container">
+        <div>
+            <label for="title">Title: </label>
+            <input type="text" class="form-control" name="title" aria-describedby="title-help" value={{ post.title }}>
+        </div>
+        <div>
+            <label for="detail">Detail: </label>
+            <input type="text" class="form-control" name="detail" value={{ post.detail }}>
+        </div>
+        <div>
+            <label for="due">Due: </label>
+            <input type="date" name="due" value={{ post.due.date() }} required>
+        </div>
+        <a href="/" class="btn btn-primary" role="button">Return</a>
+        <button class="btn btn-success" type="submit">Change</button>
+     </div>
 </form>
 {% endblock %}

@@ -16,6 +16,19 @@ class Post(db.Model):
     detail = db.Column(db.String(100))
     due = db.Column(db.DateTime, nullable=False)
 
+@app.before_first_request
+def create_default_tasks():
+    # デフォルトのタスクをデータベースに追加する
+    default_tasks = [
+        {'title': 'Task 1', 'detail': 'Detail for Task 1', 'due': datetime.now()},
+        {'title': 'Task 2', 'detail': 'Detail for Task 2', 'due': datetime.now()},
+        {'title': 'Task 3', 'detail': 'Detail for Task 3', 'due': datetime.now()}
+    ]
+    for task in default_tasks:
+        new_post = Post(title=task['title'], detail=task['detail'], due=task['due'])
+        db.session.add(new_post)
+    db.session.commit()
+
 
 #GET: 保存されているタスクを表示  POST: データベースにタスクを保存
 @app.route('/', methods=['GET', 'POST']) 

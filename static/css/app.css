@@ -22,14 +22,27 @@
 	color: yellow;
   }
 
+header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100px;
+	position: fixed;
+  	top: 0;
+  	left: 0;
+  	width: 100%;
+  	z-index: 999;
+  }
+
+.container {
+    padding-top: 60px;
+}
+  
 .create-button {
 	display: inline-block;
-	margin: 30px 0 0 140px;
-}
-
-#header{
-	position: fixed;
-}
+	margin-top: 30px;
+  }
+  
 
 a {
 	text-decoration: none;

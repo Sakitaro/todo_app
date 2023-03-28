@@ -17,9 +17,6 @@ class Post(db.Model):
     due = db.Column(db.DateTime, nullable=False)
 
 @app.before_first_request
-def create_tables():
-    db.create_all()
-
 def create_default_tasks():
     # デフォルトのタスクをデータベースに追加する
     default_tasks = [
@@ -31,6 +28,9 @@ def create_default_tasks():
         new_post = Post(title=task['title'], detail=task['detail'], due=task['due'])
         db.session.add(new_post)
     db.session.commit()
+    
+def create_tables():
+    db.create_all()
 
 
 #GET: 保存されているタスクを表示  POST: データベースにタスクを保存

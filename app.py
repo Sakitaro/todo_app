@@ -17,6 +17,9 @@ class Post(db.Model):
     due = db.Column(db.DateTime, nullable=False)
 
 @app.before_first_request
+def create_tables():
+    db.create_all()
+
 def create_default_tasks():
     # デフォルトのタスクをデータベースに追加する
     default_tasks = [

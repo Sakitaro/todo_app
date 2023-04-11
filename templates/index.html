@@ -1,4 +1,4 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 <head>
     <link rel="stylesheet" href="app.css">
 </head>
@@ -31,56 +31,32 @@
                 <a href="/delete/{{ post.id }}" class="card-text text-white" role="button">Delete</a>
             </div>
         </div>
-    </div>  
+    </div>
 
-    {% endfor %} 
+    {% endfor %}
 
     <!-- ランダムに画像をあてる -->
     <script>
-        const images = ["static/randam-images/1.jpg",
-                        "static/randam-images/2.jpg",
-                        "static/randam-images/3.jpg",
-                        "static/randam-images/4.jpg",
-                        "static/randam-images/5.jpg",
-                        "static/randam-images/6.jpg",
-                        "static/randam-images/7.jpg",
-                        "static/randam-images/8.jpg",
-                        "static/randam-images/9.jpg",
-                        "static/randam-images/10.jpg",
-                        "static/randam-images/11.jpg",
-                        "static/randam-images/12.jpg",
-                        "static/randam-images/13.jpg",
-                        "static/randam-images/14.jpg",
-                        "static/randam-images/15.jpg",
-                        "static/randam-images/16.jpg",
-                        "static/randam-images/17.jpg",
-                        "static/randam-images/18.jpg",
-                        "static/randam-images/19.jpg",
-                        "static/randam-images/20.jpg",
-                        "static/randam-images/21.jpg",
-                        "static/randam-images/22.jpg",
-                        "static/randam-images/23.jpg",
-                        "static/randam-images/24.jpg",
-                        "static/randam-images/25.jpg",
-                        "static/randam-images/26.jpg",
-                        "static/randam-images/27.jpg",
-                        "static/randam-images/28.jpg",
-                        "static/randam-images/29.jpg",
-                        "static/randam-images/30.jpg",
-                        "static/randam-images/31.jpg",
-                        "static/randam-images/32.jpg",
-                        "static/randam-images/33.jpg",
-                        "static/randam-images/34.jpg",
-                        "static/randam-images/35.jpg",
-                        "static/randam-images/36.jpg",
-                        "static/randam-images/37.jpg",
-                        "static/randam-images/38.jpg",
-                        "static/randam-images/39.jpg"];
+        function generateImageFilename(index) {
+            return `static/randam-images/${index}.jpg`;
+        }
 
-        for (let i=0; i<"{{ posts|length }}"; i++) {
-        const imageArea = document.getElementById('imageArea'+i);
-        const imageNo = Math.floor(Math.random() * images.length);
-        imageArea.src = images[imageNo];
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        const totalImages = 39;
+        const imageFilenames = Array.from({length: totalImages}, (_, i) => generateImageFilename(i + 1));
+        const shuffledImages = shuffleArray([...imageFilenames]);
+
+        for (let i = 0; i < "{{ posts|length }}"; i++) {
+            const imageArea = document.getElementById('imageArea' + i);
+            const imageNo = i % shuffledImages.length;
+            imageArea.src = shuffledImages[imageNo];
         }
     </script>
 

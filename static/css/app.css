@@ -1,64 +1,59 @@
-.card {
+.card,
+.card-img {
     height: 300px;
-	width: 300px;
-	object-fit: cover; 
-	margin: 4em;
-	border-radius: 20px;
+    width: 300px;
+    border-radius: 20px;
 }
 
 .card-img {
-    height: 300px;
-	width: 300px;
-	object-fit: cover; 
-	border-radius: 20px;
-} 
+    object-fit: cover;
+}
 
+.card {
+    object-fit: cover;
+    margin: 4em;
+}
 
 .flex {
-	display: flex;
-  }
+    display: flex;
+}
 
-  .bi {
-	color: yellow;
-  }
+.bi {
+    color: yellow;
+}
 
 header {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100px;
-	position: fixed;
-  	top: 0;
-  	left: 0;
-  	width: 100%;
-  	z-index: 999;
-  }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+}
 
 .container {
     padding-top: 60px;
 }
-  
-.create-button {
-	display: inline-block;
-	margin-top: 30px;
-  }
-  
 
-a {
-	text-decoration: none;
+.create-button {
+    display: inline-block;
+    margin-top: 30px;
 }
 
-.card-title {
-	background-color: rgba(51,51,51,0.5);
-	width: fit-content;
+a {
+    text-decoration: none;
+}
+
+.card-title,
+.card-due,
+.card-text {
+    background-color: rgba(51, 51, 51, 0.5);
+    width: fit-content;
 }
 
 .card-due {
-	background-color: rgba(51,51,51,0.5);
-	width: fit-content;
-	height: 1.5em;
-}
-
-.card-text {
-	background-color: rgba(51,51,51,0.5);
+    height: 1.5em;
 }

@@ -1,13 +1,10 @@
-from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for    #requestはGETやPOSTのようにリクエスト方法に応じて実装内容を変更するために必要　
 from flask_sqlalchemy import SQLAlchemy         # redirectはPOSTで受け取った内容をデータベースに反映した後に、もう一度トップページへアクセスするため
 from datetime import datetime, date
 
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todo.db'
 db = SQLAlchemy(app)
-
 
 #データベースの項目定義
 class Post(db.Model):
@@ -15,15 +12,15 @@ class Post(db.Model):
     title = db.Column(db.String(30), nullable=False)
     detail = db.Column(db.String(100))
     due = db.Column(db.DateTime, nullable=False)
-    
-def create_tables():
-    db.create_all()
 
 @app.before_first_request
-def create_default_tasks():
+def reset_database_and_create_default_tasks():
+    # 既存のデータベースを削除する
+    db.drop_all()
+
     # テーブルを作成する
-    create_tables()
-    
+    db.create_all()
+
     # デフォルトのタスクをデータベースに追加する
     default_tasks = [
         {'title': 'Task 1', 'detail': 'Detail for Task 1', 'due': datetime.now()},
@@ -34,7 +31,8 @@ def create_default_tasks():
         new_post = Post(title=task['title'], detail=task['detail'], due=task['due'])
         db.session.add(new_post)
     db.session.commit()
-    
+
+
 
 #GET: 保存されているタスクを表示  POST: データベースにタスクを保存
 @app.route('/', methods=['GET', 'POST']) 
@@ -93,10 +91,6 @@ def update(id):
 
         db.session.commit()
         return redirect('/')
-
-@app.before_first_request
-def create_tables():
-    db.create_all()
 
 if __name__ == "__main__":
     app.run(debug=True)
